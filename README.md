@@ -3,7 +3,7 @@
 This repository contains coursework, assignments, and projects for DNSC 6330.
 
 ## Structure
-# HW1: COMPAS Analysis
+# HW1 COMPAS Analysis
 ## COMPAS Recidivism Risk Score Analysis; Python Replication
 
 ## Purpose
@@ -111,7 +111,7 @@ work through debugging errors as they arose, and verify that my Python
 outputs were conceptually equivalent to the R workflow. All code was reviewed 
 and validated by me for accuracy and alignment with the lecture material.
 
-# HW2: COMPAS Replacement Model: Explainability and Governance Analysis
+# HW2 COMPAS Replacement Model: Explainability and Governance Analysis
 
 ## Purpose
 
