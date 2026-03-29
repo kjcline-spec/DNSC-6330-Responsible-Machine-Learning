@@ -1,8 +1,11 @@
 # DNSC 6330 Responsible Machine Learning
 
 This repository contains coursework, assignments, and projects for DNSC 6330.
-
+---
 ## Structure
+### HW1: COMPAS ANALYSIS 
+#### Purpose, Workflow Overview, Python Libraries, Instructions for Reproducing Results
+---
 # HW1: COMPAS Analysis
 ## COMPAS Recidivism Risk Score Analysis; Python Replication
 
@@ -104,15 +107,12 @@ https://github.com/propublica/compas-analysis
 This analysis demonstrates that machine learning systems must be evaluated as part of a broader system, not just based on accuracy. Differences in error rates across groups have real-world implications in high-stakes settings like criminal justice.
 
 As discussed in Lecture 01, removing protected attributes alone does not eliminate bias, as proxy variables can encode similar information.
-#### AI Use Statement
-I used AI as a learning aid on this assignment. Specifically, 
-I used it to talk through my understanding of the R-to-Python translation, 
-work through debugging errors as they arose, and verify that my Python 
-outputs were conceptually equivalent to the R workflow. All code was reviewed 
-and validated by me for accuracy and alignment with the lecture material.
 
+#### AI Use Statement: 
+I used AI as a learning aid on this assignment. Specifically, I used it to talk through my understanding of the R-to-Python translation, work through debugging errors as they arose, and verify that my Python outputs were conceptually equivalent to the R workflow. All code was reviewed and validated by me for accuracy and alignment with the lecture material.
+
+---
 # HW2: COMPAS Replacement Model: Explainability and Governance Analysis
-
 ## Purpose
 
 This notebook evaluates a COMPAS replacement model using modern explainability tools, translating Lecture 02 concepts into a full analytical workflow. The goal is not only to explain model predictions, but to assess whether those explanations are sufficient for responsible deployment in a high-stakes setting.
