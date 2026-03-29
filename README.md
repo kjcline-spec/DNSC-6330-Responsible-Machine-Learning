@@ -1,24 +1,43 @@
 # DNSC 6330 Responsible Machine Learning
 
 This repository contains coursework, assignments, and projects for DNSC 6330.
----
-## Structure
-### HW1: COMPAS ANALYSIS 
-#### Purpose, Workflow Overview, Python Libraries, Instructions for Reproducing Results, Key Findings, Reproducibility Notes, Responsible ML Context & AI Use Statment
-
-### HW:2 EXPLAINING THE COMPAS REPLACMENT MODEL
-#### Purpose, Workflow Overview, Python Libraries, Instructions for Reproducing Results, Key Findings, Method Limitations, Governance Implications, Reproducibility Notes, Responsible ML Context & AI Use Statment
 
 ---
+
+## Table of Contents
+- [HW1: COMPAS Analysis](#hw1-compas-analysis)
+  - [Purpose](#purpose)
+  - [Workflow Overview](#workflow-overview)
+  - [Python Libraries Used](#python-libraries-used)
+  - [Instructions for Reproducing Results](#instructions-for-reproducing-results)
+  - [Key Findings](#key-findings)
+  - [Reproducibility Notes](#reproducibility-notes)
+  - [Responsible ML Context](#responsible-ml-context)
+  - [AI Use Statement](#ai-use-statement)
+- [HW2: Explaining the COMPAS Replacement Model](#hw2-explaining-the-compas-replacement-model)
+  - [Purpose](#purpose-1)
+  - [Workflow Overview](#workflow-overview-1)
+  - [Python Libraries Used](#python-libraries-used-1)
+  - [Instructions for Reproducing Results](#instructions-for-reproducing-results-1)
+  - [Key Findings](#key-findings-1)
+  - [Method Limitations](#method-limitations)
+  - [Governance Implications](#governance-implications)
+  - [Reproducibility Notes](#reproducibility-notes-1)
+  - [Responsible ML Context](#responsible-ml-context-1)
+  - [AI Use Statement](#ai-use-statement-1)
+
+---
+
+
 # HW1: COMPAS Analysis
-## COMPAS Recidivism Risk Score Analysis; Python Replication
+## COMPAS Recidivism Risk Score Analysis — Python Replication
 
 ## Purpose
-This notebook replicates ProPublica's analysis of the COMPAS recidivism 
-risk scoring algorithm, translating the original R workflow from DNSC 6330 
-Lecture 01 into Python. The analysis performs exploratory data analysis on 
-the Broward County defendant dataset, builds a logistic regression model to 
-test for racial bias in COMPAS scores, and evaluates model diagnostics 
+This notebook replicates ProPublica's analysis of the COMPAS recidivism
+risk scoring algorithm, translating the original R workflow from DNSC 6330
+Lecture 01 into Python. The analysis performs exploratory data analysis on
+the Broward County defendant dataset, builds a logistic regression model to
+test for racial bias in COMPAS scores, and evaluates model diagnostics
 including confusion matrices and FPR/FNR disparity by race.
 
 ---
@@ -66,10 +85,10 @@ The goal is to ensure conceptual equivalence with the R implementation, not exac
 
 ## Instructions for Reproducing Results
 
-1. Open the notebook in Google Colab or any Jupyter environment  
-2. Run all cells from top to bottom in order  
-3. No local data files are needed — the dataset loads directly from the ProPublica GitHub repository via URL  
-4. All cells should run without errors and reproduce the outputs shown  
+1. Open the notebook in Google Colab or any Jupyter environment
+2. Run all cells from top to bottom in order
+3. No local data files are needed — the dataset loads directly from the ProPublica GitHub repository via URL
+4. All cells should run without errors and reproduce the outputs shown
 
 ---
 
@@ -91,11 +110,11 @@ The goal is to ensure conceptual equivalence with the R implementation, not exac
 
 ## Reproducibility Notes
 
-- The workflow is fully self-contained and does not require local files  
+- The workflow is fully self-contained and does not require local files
 - Minor numerical differences from the R implementation may occur due to:
   - differences in library implementations (R vs Python)
-  - floating point precision  
-- These differences do not affect the overall conclusions or interpretation  
+  - floating point precision
+- These differences do not affect the overall conclusions or interpretation
 
 ---
 
@@ -105,16 +124,30 @@ This analysis demonstrates that machine learning systems must be evaluated as pa
 
 As discussed in Lecture 01, removing protected attributes alone does not eliminate bias, as proxy variables can encode similar information.
 
-#### AI Use Statement: 
-I used AI as a learning aid on this assignment. Specifically, I used it to talk through my understanding of the R-to-Python translation, work through debugging errors as they arose, and verify that my Python outputs were conceptually equivalent to the R workflow. All code was reviewed and validated by me for accuracy and alignment with the lecture material.
+---
+
+## AI Use Statement
+
+I used AI as a learning aid on this assignment. Specifically,
+I used it to talk through my understanding of the R-to-Python translation,
+work through debugging errors as they arose, and verify that my Python
+outputs were conceptually equivalent to the R workflow. All code was reviewed
+and validated by me for accuracy and alignment with the lecture material.
 
 ---
+
 # HW2: Explaining the COMPAS Replacement Model
+
 ## Purpose
 
-This notebook evaluates a COMPAS replacement model using modern explainability tools, translating Lecture 02 concepts into a full analytical workflow. The goal is not only to explain model predictions, but to assess whether those explanations are sufficient for responsible deployment in a high-stakes setting.
+This notebook evaluates a COMPAS replacement model using modern explainability
+tools, translating Lecture 02 concepts into a full analytical workflow. The goal
+is not only to explain model predictions, but to assess whether those explanations
+are sufficient for responsible deployment in a high-stakes setting.
 
-The analysis applies SHAP, LIME, and counterfactual methods (DiCE) to understand model behavior, identify potential proxy effects, and evaluate the consistency and actionability of explanations.
+The analysis applies SHAP, LIME, and counterfactual methods (DiCE) to understand
+model behavior, identify potential proxy effects, and evaluate the consistency and
+actionability of explanations.
 
 ---
 
@@ -150,84 +183,104 @@ This analysis follows the structure introduced in Lecture 02:
 
 ## Python Libraries Used
 
-- `pandas` — data manipulation  
-- `numpy` — numerical operations  
-- `matplotlib` — plotting  
-- `seaborn` — visualization styling  
-- `xgboost` or `sklearn` — model training (gradient-boosted tree)  
-- `shap` — global and local feature attribution  
-- `lime` — local surrogate explanations  
-- `dice-ml` — counterfactual generation  
+- `pandas` — data manipulation
+- `numpy` — numerical operations
+- `matplotlib` — plotting
+- `seaborn` — visualization styling
+- `scikit-learn` — model training (logistic regression and gradient-boosted tree)
+- `shap` — global and local feature attribution
+- `lime` — local surrogate explanations
+- `dice-ml` — counterfactual generation
 
 ---
 
 ## Instructions for Reproducing Results
 
-1. Open the notebook in Google Colab or a Jupyter environment  
-2. Install required packages if needed (e.g., `pip install shap lime dice-ml`)  
-3. Run all cells from top to bottom  
-4. Ensure plots render correctly (SHAP plots may require JS support in some environments)  
+1. Open the notebook in Google Colab or a Jupyter environment
+2. Install required packages if needed (e.g., `pip install shap lime dice-ml`)
+3. Run all cells from top to bottom
+4. Ensure plots render correctly (SHAP plots may require JS support in some environments)
 
 ---
 
 ## Key Findings
 
-- SHAP identifies `priors_count` and `age` as dominant drivers of model predictions, consistent across the test set.
+- SHAP identifies `priors_count` and `age` as dominant drivers of model predictions,
+  consistent across the test set.
 
-- LIME and SHAP generally agree on high-risk individuals, but diverge for lower-risk cases, particularly on categorical features.
+- LIME and SHAP generally agree on high-risk individuals, but diverge for lower-risk
+  cases, particularly on categorical features.
 
-- This divergence highlights a key governance issue:
-  explanations are method-dependent, which can undermine consistency and due process.
+- This divergence highlights a key governance issue: explanations are method-dependent,
+  which can undermine consistency and due process.
 
-- Counterfactual analysis reveals different recourse pathways across individuals and groups, suggesting the model applies different decision logic depending on feature combinations.
+- Counterfactual analysis reveals different recourse pathways across individuals and
+  groups, suggesting the model applies different decision logic depending on feature
+  combinations.
 
-- No counterfactuals required changes to immutable features, but differences in required changes across groups suggest potential proxy effects.
+- No counterfactuals required changes to immutable features, but differences in required
+  changes across groups suggest potential proxy effects.
 
 ---
 
 ## Method Limitations
 
-- SHAP provides additive feature attribution but is not causal. A low SHAP value for a feature does not imply the model is independent of that feature in a broader sense.
+- SHAP provides additive feature attribution but is not causal. A low SHAP value for a
+  feature does not imply the model is independent of that feature in a broader sense.
 
-- LIME optimizes local fidelity, not global fidelity. Its explanations depend heavily on the chosen neighborhood and may not generalize.
+- LIME optimizes local fidelity, not global fidelity. Its explanations depend heavily on
+  the chosen neighborhood and may not generalize.
 
-- Counterfactual methods produce mathematically valid solutions, but not all are realistic or actionable in practice.
+- Counterfactual methods produce mathematically valid solutions, but not all are realistic
+  or actionable in practice.
 
-- Explanations alone do not guarantee fairness or trustworthiness — they are diagnostic tools, not validation.
+- Explanations alone do not guarantee fairness or trustworthiness — they are diagnostic
+  tools, not validation.
 
 ---
 
 ## Governance Implications
 
-- Model evaluation must extend beyond predictive performance to include fairness, consistency, and recourse.
+- Model evaluation must extend beyond predictive performance to include fairness,
+  consistency, and recourse.
 
-- Differences between explanation methods introduce risk in how decisions are justified to affected individuals.
+- Differences between explanation methods introduce risk in how decisions are justified
+  to affected individuals.
 
-- Counterfactual outputs should be audited to ensure recommendations are realistic and ethically appropriate.
+- Counterfactual outputs should be audited to ensure recommendations are realistic and
+  ethically appropriate.
 
-- Transparency tools must be embedded within a broader governance framework, including monitoring, audit processes, and documented review procedures.
+- Transparency tools must be embedded within a broader governance framework, including
+  monitoring, audit processes, and documented review procedures.
 
 ---
 
 ## Reproducibility Notes
 
-- The workflow is fully reproducible and does not require local files  
+- The workflow is fully reproducible and does not require local files
 - Minor variation in results may occur due to:
   - stochastic elements in model training
-  - differences in library implementations  
-- These do not affect the overall conclusions  
+  - differences in library implementations
+- These do not affect the overall conclusions
 
 ---
 
 ## Responsible ML Context
 
-This analysis demonstrates that explainability is necessary but not sufficient for responsible machine learning. Even when models are transparent, they may still encode proxy relationships and produce inconsistent or non-actionable explanations.
+This analysis demonstrates that explainability is necessary but not sufficient for
+responsible machine learning. Even when models are transparent, they may still encode
+proxy relationships and produce inconsistent or non-actionable explanations.
 
-As discussed in Lecture 02, transparency tools should be used to diagnose model behavior, not to justify deployment decisions in isolation.
+As discussed in Lecture 02, transparency tools should be used to diagnose model
+behavior, not to justify deployment decisions in isolation.
 
-#### AI Use Statement
-I used AI as a learning aid on this assignment. Specifically, 
-I used it to talk through my understanding of the R-to-Python translation, 
-work through debugging errors as they arose, and verify that my Python 
-outputs were conceptually equivalent to the R workflow. All code was reviewed 
-and validated by me for accuracy and alignment with the lecture material.
+---
+
+## AI Use Statement
+
+I used AI as a learning aid on this assignment. Specifically,
+I used it to talk through my understanding of SHAP, LIME, and DiCE concepts
+from Lecture 02, work through debugging errors as they arose, and verify that
+my Python outputs were conceptually aligned with the lecture material. All code
+and written analysis was reviewed and validated by me for accuracy and alignment
+with course content.
