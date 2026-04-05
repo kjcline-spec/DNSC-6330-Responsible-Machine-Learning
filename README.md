@@ -25,9 +25,29 @@ This repository contains coursework, assignments, and projects for DNSC 6330.
   - [Reproducibility Notes](#reproducibility-notes-1)
   - [Responsible ML Context](#responsible-ml-context-1)
   - [AI Use Statement](#ai-use-statement-1)
+- [HW3: Algorithmic Bias Measurement — COMPAS](#hw3-algorithmic-bias-measurement--compas)
+  - [Purpose](#purpose-2)
+  - [Workflow Overview](#workflow-overview-2)
+  - [Python Libraries Used](#python-libraries-used-2)
+  - [Instructions for Reproducing Results](#instructions-for-reproducing-results-2)
+  - [Key Findings](#key-findings-2)
+  - [Limitations](#limitations)
+  - [Responsible ML Context](#responsible-ml-context-2)
+  - [AI Use Statement](#ai-use-statement-2)
 
 ---
 
+## Structure
+### HW1: COMPAS ANALYSIS
+#### Purpose, Workflow Overview, Python Libraries, Instructions for Reproducing Results, Key Findings, Reproducibility Notes, Responsible ML Context & AI Use Statement
+
+### HW2: EXPLAINING THE COMPAS REPLACEMENT MODEL
+#### Purpose, Workflow Overview, Python Libraries, Instructions for Reproducing Results, Key Findings, Method Limitations, Governance Implications, Reproducibility Notes, Responsible ML Context & AI Use Statement
+
+### HW3: ALGORITHMIC BIAS MEASUREMENT — COMPAS
+#### Purpose, Workflow Overview, Python Libraries, Instructions for Reproducing Results, Key Findings, Limitations, Responsible ML Context & AI Use Statement
+
+---
 
 # HW1: COMPAS Analysis
 ## COMPAS Recidivism Risk Score Analysis — Python Replication
@@ -128,7 +148,7 @@ As discussed in Lecture 01, removing protected attributes alone does not elimina
 
 ## AI Use Statement
 
-I used AI as a learning aid on this assignment. Specifically,
+I AI as a learning aid on this assignment. Specifically,
 I used it to talk through my understanding of the R-to-Python translation,
 work through debugging errors as they arose, and verify that my Python
 outputs were conceptually equivalent to the R workflow. All code was reviewed
@@ -278,9 +298,134 @@ behavior, not to justify deployment decisions in isolation.
 
 ## AI Use Statement
 
-I used AI as a learning aid on this assignment. Specifically,
+I AI as a learning aid on this assignment. Specifically,
 I used it to talk through my understanding of SHAP, LIME, and DiCE concepts
 from Lecture 02, work through debugging errors as they arose, and verify that
 my Python outputs were conceptually aligned with the lecture material. All code
 and written analysis was reviewed and validated by me for accuracy and alignment
 with course content.
+
+---
+
+# HW3: Algorithmic Bias Measurement — COMPAS
+
+## Purpose
+
+This notebook applies formal bias measurement methods to the COMPAS recidivism
+risk scoring algorithm, translating Lecture 03 concepts into a full analytical
+workflow. The goal is to quantify disparate impact across racial and sex groups
+using industry-standard metrics, assess statistical and practical significance,
+and produce a compliance-ready audit summary.
+
+---
+
+## Workflow Overview
+
+This analysis follows the structure introduced in Lecture 03:
+
+1. **Disparity Metrics — Manual Implementation**
+   - Adverse Impact Ratio (AIR) by race and sex
+   - Marginal Effect (ME) by race and sex
+   - Standardized Mean Difference (SMD) on continuous decile score
+   - FPR and FNR by race with two-proportion z-tests
+
+2. **Disparity Metrics — solas-ai Library**
+   - Replicate AIR and SMD using `solas_disparity`
+   - Confirm results match manual calculations
+   - Apply EEOC 80% Rule threshold
+
+3. **Intersectional Analysis**
+   - Race × sex subgroup analysis
+   - Worst-group AIR identification and interpretation
+   - Small cell size flagging per Lecture 03 guidance
+
+4. **Visualization**
+   - Publication-quality grouped bar chart of FPR and FNR by race
+   - Caucasian reference lines for visual comparison
+
+5. **Compliance Memo**
+   - 300-word regulatory summary addressed to a hypothetical federal regulator
+   - Findings, metrics, limitations, and monitoring recommendations
+
+---
+
+## Python Libraries Used
+
+- `pandas` — data manipulation
+- `numpy` — numerical operations
+- `matplotlib` — publication-quality visualizations
+- `scipy` — statistical calculations
+- `statsmodels` — two-proportion z-tests
+- `solas-ai` — industry-standard disparity testing library
+
+---
+
+## Instructions for Reproducing Results
+
+1. Open the notebook in Google Colab or any Jupyter environment
+2. Run all cells from top to bottom in order
+3. No local data files are needed — the COMPAS dataset loads directly from
+   the ProPublica GitHub repository via URL
+4. Install solas-ai if needed: `pip install solas-ai "kaleido<1.0.0" "plotly<6.0.0"`
+
+---
+
+## Key Findings
+
+- African-American defendants are flagged as high risk at 1.74x the rate of
+  Caucasian defendants (AIR = 1.741, SMD = 0.608 — large magnitude).
+
+- FPR for African-American defendants is 0.423 versus 0.220 for Caucasian
+  defendants (z = 11.384, p < 0.001) — statistically and practically significant.
+
+- FNR disparity runs in the opposite direction — white defendants miss actual
+  recidivists at nearly 2x the rate of Black defendants, illustrating the
+  Impossibility Theorem directly.
+
+- Intersectional analysis revealed Hispanic female defendants are flagged at
+  only 27% of the Caucasian male reference rate (AIR = 0.270, n = 82) — a
+  finding invisible in race-only or sex-only analysis.
+
+- All manual disparity calculations were confirmed against solas-ai library
+  output, validating both implementations.
+
+---
+
+## Limitations
+
+- The audit measures association, not causation. Disparities may reflect
+  historical policing patterns in the training data rather than model design.
+
+- The Impossibility Theorem means FPR and FNR disparity cannot both be
+  eliminated simultaneously when base rates differ across groups.
+
+- Small subgroup sizes for Native American (n = 11) and Asian (n = 31)
+  limit the reliability of those estimates.
+
+- This audit addresses statistical disparate impact only. A full compliance
+  review would additionally require business necessity analysis and evaluation
+  of less discriminatory alternatives.
+
+---
+
+## Responsible ML Context
+
+This analysis demonstrates that bias measurement is a necessary precondition
+for responsible deployment. Aggregate accuracy metrics conceal subgroup harms,
+and no single metric is sufficient — AIR, FPR, FNR, SMD, and intersectional
+analysis each reveal different dimensions of disparity.
+
+As discussed in Lecture 03, transparency without governance is explanation
+washing. Disparity metrics must feed into documented audit processes, remediation
+workflows, and ongoing monitoring — not treated as one-time compliance checkboxes.
+
+---
+
+## AI Use Statement
+
+I used AI as a learning aid on this assignment. Specifically,
+I used it to talk through my understanding of the Lecture 03 bias measurement
+concepts, work through the solas-ai library API, debug errors as they arose,
+and verify that my outputs were conceptually aligned with the course material.
+All code and written analysis was reviewed and validated by me for accuracy
+and alignment with course content.
