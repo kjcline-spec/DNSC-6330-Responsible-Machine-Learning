@@ -148,7 +148,7 @@ As discussed in Lecture 01, removing protected attributes alone does not elimina
 
 ## AI Use Statement
 
-I AI as a learning aid on this assignment. Specifically,
+I used AI as a learning aid on this assignment. Specifically,
 I used it to talk through my understanding of the R-to-Python translation,
 work through debugging errors as they arose, and verify that my Python
 outputs were conceptually equivalent to the R workflow. All code was reviewed
@@ -298,7 +298,7 @@ behavior, not to justify deployment decisions in isolation.
 
 ## AI Use Statement
 
-I AI as a learning aid on this assignment. Specifically,
+I used AI as a learning aid on this assignment. Specifically,
 I used it to talk through my understanding of SHAP, LIME, and DiCE concepts
 from Lecture 02, work through debugging errors as they arose, and verify that
 my Python outputs were conceptually aligned with the lecture material. All code
