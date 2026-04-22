@@ -34,6 +34,22 @@ This repository contains coursework, assignments, and projects for DNSC 6330.
   - [Limitations](#limitations)
   - [Responsible ML Context](#responsible-ml-context-2)
   - [AI Use Statement](#ai-use-statement-2)
+- [HW4: Robustness, Generalization, and Dataset Drift](#hw4-robustness-generalization-and-dataset-drift)
+  - [Purpose](#purpose-3)
+  - [Workflow Overview](#workflow-overview-3)
+  - [Python Libraries Used](#python-libraries-used-3)
+  - [Instructions for Reproducing Results](#instructions-for-reproducing-results-3)
+  - [Key Findings](#key-findings-3)
+  - [Responsible ML Context](#responsible-ml-context-3)
+  - [AI Use Statement](#ai-use-statement-3)
+- [HW5: Adversarial ML — Evasion, Poisoning, and Membership Inference](#hw5-adversarial-ml--evasion-poisoning-and-membership-inference)
+  - [Purpose](#purpose-4)
+  - [Workflow Overview](#workflow-overview-4)
+  - [Python Libraries Used](#python-libraries-used-4)
+  - [Instructions for Reproducing Results](#instructions-for-reproducing-results-4)
+  - [Key Findings](#key-findings-4)
+  - [Responsible ML Context](#responsible-ml-context-4)
+  - [AI Use Statement](#ai-use-statement-4)
 
 ---
 
@@ -429,3 +445,207 @@ concepts, work through the solas-ai library API, debug errors as they arose,
 and verify that my outputs were conceptually aligned with the course material.
 All code and written analysis was reviewed and validated by me for accuracy
 and alignment with course content.
+
+---
+
+# HW4: Robustness, Generalization, and Dataset Drift
+
+## Purpose
+
+This notebook extends the COMPAS analysis from Lectures 01-03 by evaluating
+whether the trained models remain reliable beyond the training setting. The goal
+is to move from static performance reporting to deployment-defensible evaluation
+under distribution drift, generalization failure, spurious correlations, and
+robustness stress.
+
+---
+
+## Workflow Overview
+
+This analysis follows the structure introduced in Lecture 04:
+
+1. **Part A: Distribution Drift**
+   - PSI and KS tests on numeric features
+   - MMD on encoded feature space
+   - Score distribution comparison (train vs test)
+
+2. **Part B: Generalization**
+   - Train vs test AUC, accuracy, log loss, and Brier score
+   - Permutation importance to flag potential overfit reliance
+
+3. **Part C: Spurious-Correlation Probe**
+   - Counterfactual swaps on race, sex, and charge degree
+   - Mean absolute probability shift as sensitivity measure
+
+4. **Part D: Robustness**
+   - Stress test on priors_count (deltas 0, 2, 5, 10)
+   - ICE curves for LR and GBT
+   - Global sensitivity index
+
+5. **Part E: Slice-Based Evaluation**
+   - AUC, FPR, FNR by race, sex, and age subgroups
+
+---
+
+## Python Libraries Used
+
+- `pandas` — data manipulation
+- `numpy` — numerical operations
+- `matplotlib` — visualizations
+- `scikit-learn` — model training, permutation importance, metrics
+- `scipy` — KS tests
+
+---
+
+## Instructions for Reproducing Results
+
+1. Open the notebook in Google Colab or any Jupyter environment
+2. Run all cells from top to bottom in order
+3. No local data files are needed
+4. HW4 cells begin after the Lecture 04 setup section and reuse all helper
+   functions defined there (psi_numeric, mmd_rbf, evaluate_classifier, etc.)
+
+---
+
+## Key Findings
+
+- PSI and KS tests show stable input distributions between train and test,
+  confirming no meaningful covariate shift in the 80/20 split.
+
+- The GBT model shows a larger generalization gap than LR (0.080 vs 0.008),
+  indicating greater overfitting risk in the higher-capacity model.
+
+- Counterfactual race swaps produce a measurable shift in predicted
+  probabilities, providing evidence of proxy reliance even when race is
+  not an explicit model input.
+
+- Stress testing confirms priors_count has high sensitivity: incrementing
+  by +5 shifts the predicted high-risk rate substantially for both models,
+  with GBT showing greater sensitivity.
+
+- Slice-based evaluation replicates the HW3 FPR disparity finding and
+  additionally reveals variation in AUC across age subgroups.
+
+---
+
+## Responsible ML Context
+
+This analysis demonstrates that good average performance is not sufficient
+evidence of deployment readiness. Reliable deployment requires that a model
+generalize beyond training, remain stable under realistic drift and stress,
+and not impose concentrated harm on specific subgroups. As discussed in
+Lecture 04, each metric in the audit pipeline answers a governance question
+that cannot be skipped.
+
+---
+
+## AI Use Statement
+
+I used AI as a learning aid on this assignment. Specifically, I used it to
+talk through my understanding of the Lecture 04 robustness and drift concepts,
+work through the helper function implementations, and verify that my outputs
+were aligned with the lecture pipeline. All code and written analysis was
+reviewed and validated by me for accuracy and alignment with course content.
+
+---
+
+# HW5: Adversarial ML — Evasion, Poisoning, and Membership Inference
+
+## Purpose
+
+This notebook applies adversarial machine learning techniques to the COMPAS
+pipeline, translating the Lecture 05 live coding session into a full individual
+homework workflow. The goal is to evaluate model vulnerability to deployment-time
+evasion, training-time poisoning, and privacy attacks, and to connect attack
+findings to governance decisions.
+
+---
+
+## Workflow Overview
+
+This analysis follows the structure introduced in Lecture 05:
+
+1. **Part 1: PGD Evasion Audit**
+   - PGD attack across epsilon {0.25, 0.5, 1.0, 2.0} on both LR and GBT
+   - FPR by race and AIR at each epsilon
+   - Identification of epsilon at which AIR crosses 0.80
+   - Comparative vulnerability assessment of LR vs GBT
+
+2. **Part 2: Poisoning Loop with Fairness Monitoring**
+   - Label-flip poisoning targeting Caucasian defendants (extending Lecture 05)
+   - AUC and AIR degradation curves for both target-race variants
+   - Stealth zone identification: AUC drop <= 2pp while AIR outside [0.80, 1.25]
+   - PSI-based drift monitor evaluation
+
+3. **Part 3: Membership Inference Depth**
+   - Shadow model MI AUC for both LR and GBT
+   - Confidence-gap histograms side by side
+   - Generalization gap vs MI AUC analysis
+   - L2 regularization sweep (C in {0.01, 0.1, 1.0, 10.0}) with MI AUC vs C plot
+
+---
+
+## Python Libraries Used
+
+- `pandas` — data manipulation
+- `numpy` — numerical operations
+- `matplotlib` — visualizations
+- `scikit-learn` — model training, MI shadow models, metrics
+- `scipy` — statistical tests
+
+---
+
+## Instructions for Reproducing Results
+
+1. Open the notebook in Google Colab or any Jupyter environment
+2. Run all cells from top to bottom in order
+3. HW5 cells begin after the Lecture 05 setup section
+4. The Lecture 05 setup (Cell 1 and Cell 2) must be run first as HW5 reuses
+   the lr, gbt, Xs_tr, Xs_te, y_tr, y_te, r_te, THR, and baseline variables
+
+---
+
+## Key Findings
+
+- PGD evasion shows increasing FPR for African-American defendants as epsilon
+  grows, with the fairness gap persisting across all tested values. The GBT
+  model was attacked via transfer (LR coefficients as proxy gradient), confirming
+  cross-model transferability of adversarial inputs.
+
+- Label-flip poisoning targeting Caucasian defendants produces a different AIR
+  trajectory than African-American targeting. In both cases, AUC monitoring alone
+  cannot detect the attack because AUC barely moves while fairness metrics degrade.
+
+- PSI-based drift monitors cannot detect label-flip poisoning because feature
+  distributions are unchanged. Only subgroup error rate monitoring would catch it.
+
+- LR achieved MI AUC of 0.500 (no detectable leakage) due to its low
+  generalization gap. The GBT showed higher leakage risk consistent with its
+  larger gap, confirming the generalization-privacy link from Lecture 05.
+
+- The L2 regularization sweep confirms that stronger regularization (lower C)
+  reduces MI AUC toward 0.50 at the cost of some predictive accuracy, illustrating
+  the privacy-performance tradeoff.
+
+---
+
+## Responsible ML Context
+
+This analysis demonstrates that adversarial robustness and fairness are not
+separate concerns. PGD evasion has disparate impact by race, poisoning attacks
+can silently corrupt fairness metrics while evading AUC monitoring, and privacy
+leakage is directly linked to overfitting. As discussed in Lecture 05, a model
+fragile to distribution shift shares the same root cause as a model vulnerable
+to adversarial attack: over-reliance on brittle features. Security, robustness,
+and fairness require the same structural solution.
+
+---
+
+## AI Use Statement
+
+I used AI as a learning aid on this assignment. Specifically, I used it to
+talk through my understanding of the Lecture 05 adversarial attack concepts,
+work through the PGD, poisoning, and membership inference implementations,
+and verify that my outputs were aligned with the lecture pipeline. All code
+and written analysis was reviewed and validated by me for accuracy and
+alignment with course content.
