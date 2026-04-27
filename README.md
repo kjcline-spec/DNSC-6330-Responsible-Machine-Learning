@@ -63,6 +63,11 @@ This repository contains coursework, assignments, and projects for DNSC 6330.
 ### HW3: ALGORITHMIC BIAS MEASUREMENT — COMPAS
 #### Purpose, Workflow Overview, Python Libraries, Instructions for Reproducing Results, Key Findings, Limitations, Responsible ML Context & AI Use Statement
 
+### HW4: PYTHON CODE AUDIT — COMPAS
+#### Purpose, Workflow Overview, Python Libraries, Instructions for Reproducing Results, Key Findings, Limitations, Responsible ML Context & AI Use Statement
+
+### HW5: ML SECURITY AND ABUSE PATHWAYS — COMPAS
+#### Purpose, Workflow Overview, Python Libraries, Instructions for Reproducing Results, Key Findings, Limitations, Responsible ML Context & AI Use Statement
 ---
 
 # HW1: COMPAS Analysis
